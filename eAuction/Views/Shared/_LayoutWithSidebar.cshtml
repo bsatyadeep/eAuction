@@ -1,0 +1,17 @@
+﻿@{    
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "_LayoutWithSidebar";
+}
+@section Scripts
+{
+    @RenderSection("Scripts", required: false)
+}
+@section Featured{
+    @RenderSection("Featured", required: false)
+}
+<div class="sidebar">
+    @RenderSection("sidebar")
+</div>
+<div class="content">
+    @RenderBody()
+</div>

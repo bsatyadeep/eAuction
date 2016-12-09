@@ -1,0 +1,6 @@
+﻿@model eAuction.Models.Auction
+<div class="auction-title">
+    <h4 class="title">@Model.Title</h4>
+    <p class="end-date">Ends at @Model.EndTime.ToString("g")</p>
+    <p class="price">Price: @Model.CurrentPrice.GetValueOrDefault(Model.StartPrice).ToString("c")</p>
+</div>
