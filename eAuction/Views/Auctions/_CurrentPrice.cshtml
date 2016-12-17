@@ -1,0 +1,5 @@
+﻿@model eAuction.Models.Auction
+<p class="current-price">
+    <span>Current Price: @Model?.CurrentPrice.Value.ToString("C")</span>
+    <span>[@Model.BidCount bids]</span>
+</p>

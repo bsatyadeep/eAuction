@@ -170,11 +170,13 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AuctionsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Data\AuctionsDataContext.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Auction.cs" />
+    <Compile Include="Models\Bid.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -231,6 +233,8 @@
     <Content Include="Views\Auctions\Index.cshtml" />
     <Content Include="Views\Shared\_AuctionTile.cshtml" />
     <Content Include="Views\Shared\_LayoutWithSidebar.cshtml" />
+    <Content Include="Views\Auctions\Create.cshtml" />
+    <Content Include="Views\Auctions\_CurrentPrice.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

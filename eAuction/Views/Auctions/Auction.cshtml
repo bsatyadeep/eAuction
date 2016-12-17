@@ -10,8 +10,8 @@
     <div class="details">
         <p>Start Time:@auction.StartTime.ToString("g")</p>
         <p>End Time:@auction.EndTime.ToString("g")</p>
-        <p>Start Price:@auction.StartPrice</p>
-        <p>
+        <p>Staring Price: @Model.StartPrice.ToString("C")</p>
+        <p class="current-price">
             Current Price:
             @if (auction.CurrentPrice == null)
             {
@@ -20,14 +20,64 @@
             else
             {
                 <span>@auction.CurrentPrice.Value.ToString("C")</span>
+                <span>[@auction.BidCount bids]</span>
+            }
+        </p>
+        <p>
+            @using (Html.BeginForm("Bid", "Auctions"))
+            {
+                var lowestBidAmount = auction.CurrentPrice.GetValueOrDefault(auction.StartPrice) + 1;
+                <span>
+                    Bid: $@Html.TextBox("Amount", lowestBidAmount);
+                    @Html.ValidationMessage("Amount")
+                </span>
+                @Html.Hidden("AuctionId", auction.Id)
+                <input type="submit" class="post-bid" value="bid" />
             }
         </p>
     </div>
     @if (auction.ImgageUrl != null)
     {
-        <img src="@auction.ImgageUrl" title="@auction.Title"/>
+        <img src="@auction.ImgageUrl" title="@auction.Title" />
     }
     <div class="description">
         @auction.Description
     </div>
+    <script id="current-price-template" type="application/html-template">
+        <p class="current-price">
+            <span>Current Price:{{CurrentPrice}}</span>
+            <span>[{{BidCount}}]</span>
+        </p>
+    </script>
 </div>
+@section scripts
+{
+    <script type="text/javascript" language="javascript">
+        $(function() {
+            $('.post-bid').on('click', function() {
+                var form = $(this).parent('form');
+                $.ajax({
+                        type: 'POST',
+                        url: form.attr('action'),
+                        data: form.serialize()
+                    })
+                    .success(function(data) {
+                        //alert('Bid Has been Submitted');
+                        //$('.current-price').replaceWith(data);
+                        var template = $('#current-price-template').clone().html();
+                        var html =
+                            template
+                                .replace('{{CurrentPrice}}', data.CurrentPrice)
+                                .replace('{{BidCount}}', data.BidCount);
+
+                        $('.current-price').replaceWith(html);
+
+                    })
+                    .error(function(data) {
+                        alert('Bid has been rejected');
+                    });
+                return false;
+            });
+        });
+    </script>
+}

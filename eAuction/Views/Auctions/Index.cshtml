@@ -19,10 +19,10 @@
 {
     <!--This section will be render in the Script Section-->
 }
-<h2>Index</h2>
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
+<h2>@ViewBag.Title</h2>
+<div class="btn btn-group btn-group-sm btn-toolbar">
+    @Html.ActionLink("Create New", "Create",null,new {@class="btn btn-primary"})
+</div>
 @foreach (var auction in Model)
 {
     @Html.Partial("_AuctionTile",auction)
